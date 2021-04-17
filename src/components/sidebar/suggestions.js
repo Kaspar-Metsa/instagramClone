@@ -5,24 +5,25 @@ import Skeleton from 'react-loading-skeleton';
 import { getSuggestedProfiles } from '../../services/firebase';
 import SuggestedProfile from './suggested-profile';
 
-export default function Suggestions({ userId, following, loggedInUserDocId }) {
+export default function Suggestions({ userId, following, firestoreUserDocId }) {
   const [profiles, setProfiles] = useState(null);
 
   useEffect(() => {
     async function suggestedProfiles() {
-      const response = await getSuggestedProfiles(userId, following);
-      setProfiles(response);
+      const result = await getSuggestedProfiles(userId, following);
+      setProfiles(result);
     }
-
     if (userId) {
       suggestedProfiles();
     }
   }, [userId]);
+
   // hint: use the firebase service (call using userId)
   // getSuggestedProfiles
   // call the async function ^^^^ within useEffect
-  // store it in state
-  // go ahead and render (wait on the profiles as in 'skeleton')
+  // K: you want to do it when userId is initiated and THEN get suggestions
+  // Once you have that, store it in state
+  // Once you have done that, go ahead and render (wait on the profiles as in 'skeleton')
 
   return !profiles ? (
     <Skeleton count={1} height={150} className="mt-5" />
@@ -39,7 +40,7 @@ export default function Suggestions({ userId, following, loggedInUserDocId }) {
             username={profile.username}
             profileId={profile.userId}
             userId={userId}
-            loggedInUserDocId={loggedInUserDocId}
+            loggedInUserDocId={firestoreUserDocId}
           />
         ))}
       </div>
@@ -50,5 +51,5 @@ export default function Suggestions({ userId, following, loggedInUserDocId }) {
 Suggestions.propTypes = {
   userId: PropTypes.string,
   following: PropTypes.array,
-  loggedInUserDocId: PropTypes.string
+  firestoreUserDocId: PropTypes.string
 };

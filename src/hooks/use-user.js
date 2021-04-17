@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { getUserByUserId } from '../services/firebase';
 
-export default function useUser(userId) {
+export default function useUser(loggedInUserUid) {
   const [activeUser, setActiveUser] = useState();
 
   useEffect(() => {
@@ -10,10 +10,10 @@ export default function useUser(userId) {
       setActiveUser(user || {});
     }
 
-    if (userId) {
-      getUserObjByUserId(userId);
+    if (loggedInUserUid) {
+      getUserObjByUserId(loggedInUserUid);
     }
-  }, [userId]);
+  }, [loggedInUserUid]);
 
   return { user: activeUser };
 }

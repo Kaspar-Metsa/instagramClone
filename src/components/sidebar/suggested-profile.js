@@ -10,6 +10,11 @@ export default function SuggestedProfile({
   userId,
   loggedInUserDocId
 }) {
+  // We need this state to see if we have followed because if we have followed them we need to
+  // remove it and not show in the list
+  // If I followed Dali I want to say "look i followed this person, remove it from the list"
+  // we don't want to do a full rerender of absolutely everything
+  // we want React to rerender to only remove 1 follower from that particular profile
   const [followed, setFollowed] = useState(false);
 
   async function handleFollowUser() {

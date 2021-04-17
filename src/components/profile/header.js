@@ -20,6 +20,7 @@ export default function Header({
   }
 }) {
   const { user: loggedInUser } = useContext(UserContext);
+
   const { user } = useUser(loggedInUser?.uid);
   const [isFollowingProfile, setIsFollowingProfile] = useState(false);
   const activeBtnFollow = user?.username && user?.username !== profileUsername;
@@ -44,23 +45,23 @@ export default function Header({
   }, [user?.username, profileUserId]);
 
   return (
-    <div className="grid grid-cols-3 gap-4 justify-between mx-auto max-w-screen-lg">
+    <div className="grid grid-cols-3 gap-4">
       <div className="container flex justify-center items-center">
         {profileUsername ? (
           <img
-            className="rounded-full h-40 w-40 flex"
-            alt={`${fullName} profile picture`}
+            className="rounded-full h-16 w-16 md:h-20 lg:h-40 md:w-20 lg:w-40"
+            alt={`${user?.username} profile picture`}
             src={`/images/avatars/${profileUsername}.jpg`}
           />
         ) : (
           <img
-            className="rounded-full h-40 w-40 flex"
-            alt={"Karl Hadwen's profile picture"}
+            className="rounded-full h-16 w-16 md:h-20 lg:h-40 md:w-20 lg:w-40"
+            alt={`Karl Hadwen's profile picture`}
             src="/images/avatars/karl.jpg"
           />
         )}
       </div>
-      <div className="flex items-center justify-center flex-col col-span-2">
+      <div className="flex justify-center flex-col col-span-2">
         <div className="container flex items-center">
           <p className="text-2xl mr-4">{profileUsername}</p>
           {activeBtnFollow && (
@@ -78,7 +79,7 @@ export default function Header({
             </button>
           )}
         </div>
-        <div className="container flex mt-4">
+        <div className="container flex mt-4 flex-col lg:flex-row">
           {!followers || !following ? (
             <Skeleton count={1} width={677} height={24} />
           ) : (
@@ -92,7 +93,7 @@ export default function Header({
                 {followerCount === 1 ? `follower` : `followers`}
               </p>
               <p className="mr-10">
-                <span className="font-bold">{following?.length}</span> following
+                <span className="font-bold">{following.length}</span> following
               </p>
             </>
           )}

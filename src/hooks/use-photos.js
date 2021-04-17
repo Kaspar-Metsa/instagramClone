@@ -6,7 +6,7 @@ export default function usePhotos(user) {
 
   useEffect(() => {
     async function getTimelinePhotos() {
-      // does the user actually follow people?
+      // example: [2, 1, 5] <- 2 being raphel
       if (user?.following?.length > 0) {
         const followedUserPhotos = await getPhotos(user.userId, user.following);
         // re-arrange array to be newest photos first by dateCreated
@@ -18,5 +18,5 @@ export default function usePhotos(user) {
     getTimelinePhotos();
   }, [user?.userId]);
 
-  return { photos };
+  return { photos }; // ??
 }

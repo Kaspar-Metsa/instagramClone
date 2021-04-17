@@ -8,7 +8,7 @@ import Comments from './comments';
 
 export default function Post({ content }) {
   const commentInput = useRef(null);
-  const handleFocus = () => commentInput.current.focus();
+  const handleFocus = () => commentInput.current.focus(); // anon func so it doesn't get called right away
 
   // components
   // -> header, image, actions (like & comment icons), footer, comments
